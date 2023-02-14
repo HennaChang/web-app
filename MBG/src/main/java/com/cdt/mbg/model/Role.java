@@ -10,18 +10,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable {
-    private String userId;
+public class Role implements Serializable {
+    private String roleId;
 
-    private String name;
+    private String roleName;
 
-    private String englishName;
-
-    private String deptCode;
-
-    private String mail;
-
-    private String joinday;
+    private String logonLocation;
 
     private static final long serialVersionUID = 1L;
 
@@ -31,12 +25,9 @@ public class User implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", userId=").append(userId);
-        sb.append(", name=").append(name);
-        sb.append(", englishName=").append(englishName);
-        sb.append(", deptCode=").append(deptCode);
-        sb.append(", mail=").append(mail);
-        sb.append(", joinday=").append(joinday);
+        sb.append(", roleId=").append(roleId);
+        sb.append(", roleName=").append(roleName);
+        sb.append(", logonLocation=").append(logonLocation);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

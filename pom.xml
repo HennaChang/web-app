@@ -80,6 +80,12 @@
                 <artifactId>pagehelper</artifactId>
                 <version>5.3.0</version>
             </dependency>
+			<dependency>
+			    <groupId>com.alibaba.fastjson2</groupId>
+			    <artifactId>fastjson2</artifactId>
+			    <version>2.0.23</version>
+			</dependency>
+			            
 		</dependencies>
 	</dependencyManagement>
 	<build>
@@ -102,6 +108,7 @@
 	</build>
 	<modules>
 		<module>ADMIN</module>
-    <module>MBG</module>
+	    <module>MBG</module>
+    	<module>WEB-API</module>
   </modules>
 </project>

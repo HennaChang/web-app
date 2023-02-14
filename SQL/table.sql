@@ -1,8 +1,74 @@
-CREATE TABLE [dbo].[user] (
-    [id]       VARCHAR (50)   NOT NULL,
-    [password] NVARCHAR (MAX) NOT NULL,
-    [name]     NVARCHAR (50)  NOT NULL,
-    [email]    NVARCHAR (MAX) NOT NULL,
-    [phone]    VARCHAR (50)   NOT NULL,
-    CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED ([id] ASC)
-);
+-- DROP SCHEMA dbo;
+
+CREATE SCHEMA dbo;
+-- WEB.dbo.DEPT definition
+
+-- Drop table
+
+-- DROP TABLE WEB.dbo.DEPT GO
+
+CREATE TABLE WEB.dbo.DEPT (
+	DEPT_CODE varchar(15) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL,
+	DEPT_NAME nvarchar(100) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL,
+	ENGLISH_NAME nvarchar(100) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL,
+	CONSTRAINT DEPT_PK PRIMARY KEY (DEPT_CODE)
+) GO;
+
+
+-- WEB.dbo.[ROLE] definition
+
+-- Drop table
+
+-- DROP TABLE WEB.dbo.[ROLE] GO
+
+CREATE TABLE WEB.dbo.[ROLE] (
+	ROLE_ID varchar(30) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL,
+	ROLE_NAME varchar(30) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL,
+	LOGON_LOCATION varchar(30) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL,
+	CONSTRAINT PK__role__760965CCAFA2156B PRIMARY KEY (ROLE_ID)
+) GO;
+
+
+-- WEB.dbo.[USER] definition
+
+-- Drop table
+
+-- DROP TABLE WEB.dbo.[USER] GO
+
+CREATE TABLE WEB.dbo.[USER] (
+	USER_ID varchar(10) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL,
+	NAME nvarchar(50) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL,
+	ENGLISH_NAME nvarchar(100) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL,
+	DEPT_CODE varchar(15) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL,
+	MAIL varchar(100) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL,
+	JOINDAY char(1) COLLATE Chinese_Taiwan_Stroke_CI_AS DEFAULT 1 NOT NULL,
+	CONSTRAINT EMPOLYEE_PK PRIMARY KEY (USER_ID),
+	CONSTRAINT FK__USER__DEPT_CODE__3F466844 FOREIGN KEY (DEPT_CODE) REFERENCES WEB.dbo.DEPT(DEPT_CODE)
+) GO;
+
+
+-- WEB.dbo.PUNCH_RECORD definition
+
+-- Drop table
+
+-- DROP TABLE WEB.dbo.PUNCH_RECORD GO
+
+CREATE TABLE WEB.dbo.PUNCH_RECORD (
+	USER_ID varchar(10) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL,
+	DEPT_CODE varchar(15) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL,
+	USER_NAME nvarchar(100) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL,
+	PUNCH_DATE date NOT NULL,
+	PUNCH_IN_TIME time NULL,
+	PUNCH_OUT_TIME time NULL,
+	REMARK nvarchar(200) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL,
+	CREATE_TIME datetime NULL,
+	UPDATE_TIME datetime NULL,
+	PUNCH_IN_DATE date NULL,
+	PUNCH_OUT_DATE date NULL,
+	CONSTRAINT AK_userPunchDate UNIQUE (USER_ID,PUNCH_DATE),
+	CONSTRAINT FK__PUNCH_REC__DEPT___4316F928 FOREIGN KEY (DEPT_CODE) REFERENCES WEB.dbo.DEPT(DEPT_CODE),
+	CONSTRAINT FK__PUNCH_REC__USER___4222D4EF FOREIGN KEY (USER_ID) REFERENCES WEB.dbo.[USER](USER_ID)
+) GO
+CREATE UNIQUE INDEX AK_userPunchDate ON WEB.dbo.PUNCH_RECORD (USER_ID,PUNCH_DATE) GO;
+
+

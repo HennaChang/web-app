@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cdt.mbg.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.cdt.mbg.model.User">
-    <id column="USER_ID" jdbcType="VARCHAR" property="userId" />
-    <result column="NAME" jdbcType="NVARCHAR" property="name" />
+<mapper namespace="com.cdt.mbg.mapper.DeptMapper">
+  <resultMap id="BaseResultMap" type="com.cdt.mbg.model.Dept">
+    <id column="DEPT_CODE" jdbcType="VARCHAR" property="deptCode" />
+    <result column="DEPT_NAME" jdbcType="NVARCHAR" property="deptName" />
     <result column="ENGLISH_NAME" jdbcType="NVARCHAR" property="englishName" />
-    <result column="DEPT_CODE" jdbcType="VARCHAR" property="deptCode" />
-    <result column="MAIL" jdbcType="VARCHAR" property="mail" />
-    <result column="JOINDAY" jdbcType="CHAR" property="joinday" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    USER_ID, [NAME], ENGLISH_NAME, DEPT_CODE, MAIL, JOINDAY
+    DEPT_CODE, DEPT_NAME, ENGLISH_NAME
   </sql>
-  <select id="selectByExample" parameterType="com.cdt.mbg.model.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cdt.mbg.model.DeptExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from dbo.USER
+    from dbo.DEPT
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,96 +84,67 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from dbo.USER
-    where USER_ID = #{userId,jdbcType=VARCHAR}
+    from dbo.DEPT
+    where DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from dbo.USER
-    where USER_ID = #{userId,jdbcType=VARCHAR}
+    delete from dbo.DEPT
+    where DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cdt.mbg.model.UserExample">
-    delete from dbo.USER
+  <delete id="deleteByExample" parameterType="com.cdt.mbg.model.DeptExample">
+    delete from dbo.DEPT
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cdt.mbg.model.User">
-    insert into dbo.USER (USER_ID, [NAME], ENGLISH_NAME, 
-      DEPT_CODE, MAIL, JOINDAY
+  <insert id="insert" parameterType="com.cdt.mbg.model.Dept">
+    insert into dbo.DEPT (DEPT_CODE, DEPT_NAME, ENGLISH_NAME
       )
-    values (#{userId,jdbcType=VARCHAR}, #{name,jdbcType=NVARCHAR}, #{englishName,jdbcType=NVARCHAR}, 
-      #{deptCode,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{joinday,jdbcType=CHAR}
+    values (#{deptCode,jdbcType=VARCHAR}, #{deptName,jdbcType=NVARCHAR}, #{englishName,jdbcType=NVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cdt.mbg.model.User">
-    insert into dbo.USER
+  <insert id="insertSelective" parameterType="com.cdt.mbg.model.Dept">
+    insert into dbo.DEPT
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        USER_ID,
+      <if test="deptCode != null">
+        DEPT_CODE,
       </if>
-      <if test="name != null">
-        [NAME],
+      <if test="deptName != null">
+        DEPT_NAME,
       </if>
       <if test="englishName != null">
         ENGLISH_NAME,
       </if>
-      <if test="deptCode != null">
-        DEPT_CODE,
-      </if>
-      <if test="mail != null">
-        MAIL,
-      </if>
-      <if test="joinday != null">
-        JOINDAY,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=NVARCHAR},
+      <if test="deptName != null">
+        #{deptName,jdbcType=NVARCHAR},
       </if>
       <if test="englishName != null">
         #{englishName,jdbcType=NVARCHAR},
       </if>
-      <if test="deptCode != null">
-        #{deptCode,jdbcType=VARCHAR},
-      </if>
-      <if test="mail != null">
-        #{mail,jdbcType=VARCHAR},
-      </if>
-      <if test="joinday != null">
-        #{joinday,jdbcType=CHAR},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cdt.mbg.model.UserExample" resultType="java.lang.Long">
-    select count(*) from dbo.USER
+  <select id="countByExample" parameterType="com.cdt.mbg.model.DeptExample" resultType="java.lang.Long">
+    select count(*) from dbo.DEPT
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update dbo.USER
+    update dbo.DEPT
     <set>
-      <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.name != null">
-        [NAME] = #{record.name,jdbcType=NVARCHAR},
-      </if>
-      <if test="record.englishName != null">
-        ENGLISH_NAME = #{record.englishName,jdbcType=NVARCHAR},
-      </if>
       <if test="record.deptCode != null">
         DEPT_CODE = #{record.deptCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.mail != null">
-        MAIL = #{record.mail,jdbcType=VARCHAR},
+      <if test="record.deptName != null">
+        DEPT_NAME = #{record.deptName,jdbcType=NVARCHAR},
       </if>
-      <if test="record.joinday != null">
-        JOINDAY = #{record.joinday,jdbcType=CHAR},
+      <if test="record.englishName != null">
+        ENGLISH_NAME = #{record.englishName,jdbcType=NVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -184,45 +152,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update dbo.USER
-    set USER_ID = #{record.userId,jdbcType=VARCHAR},
-      [NAME] = #{record.name,jdbcType=NVARCHAR},
-      ENGLISH_NAME = #{record.englishName,jdbcType=NVARCHAR},
-      DEPT_CODE = #{record.deptCode,jdbcType=VARCHAR},
-      MAIL = #{record.mail,jdbcType=VARCHAR},
-      JOINDAY = #{record.joinday,jdbcType=CHAR}
+    update dbo.DEPT
+    set DEPT_CODE = #{record.deptCode,jdbcType=VARCHAR},
+      DEPT_NAME = #{record.deptName,jdbcType=NVARCHAR},
+      ENGLISH_NAME = #{record.englishName,jdbcType=NVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cdt.mbg.model.User">
-    update dbo.USER
+  <update id="updateByPrimaryKeySelective" parameterType="com.cdt.mbg.model.Dept">
+    update dbo.DEPT
     <set>
-      <if test="name != null">
-        [NAME] = #{name,jdbcType=NVARCHAR},
+      <if test="deptName != null">
+        DEPT_NAME = #{deptName,jdbcType=NVARCHAR},
       </if>
       <if test="englishName != null">
         ENGLISH_NAME = #{englishName,jdbcType=NVARCHAR},
       </if>
-      <if test="deptCode != null">
-        DEPT_CODE = #{deptCode,jdbcType=VARCHAR},
-      </if>
-      <if test="mail != null">
-        MAIL = #{mail,jdbcType=VARCHAR},
-      </if>
-      <if test="joinday != null">
-        JOINDAY = #{joinday,jdbcType=CHAR},
-      </if>
     </set>
-    where USER_ID = #{userId,jdbcType=VARCHAR}
+    where DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cdt.mbg.model.User">
-    update dbo.USER
-    set [NAME] = #{name,jdbcType=NVARCHAR},
-      ENGLISH_NAME = #{englishName,jdbcType=NVARCHAR},
-      DEPT_CODE = #{deptCode,jdbcType=VARCHAR},
-      MAIL = #{mail,jdbcType=VARCHAR},
-      JOINDAY = #{joinday,jdbcType=CHAR}
-    where USER_ID = #{userId,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.cdt.mbg.model.Dept">
+    update dbo.DEPT
+    set DEPT_NAME = #{deptName,jdbcType=NVARCHAR},
+      ENGLISH_NAME = #{englishName,jdbcType=NVARCHAR}
+    where DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
   </update>
 </mapper>

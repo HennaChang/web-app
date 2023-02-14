@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdt.mbg.mapper.PunchRecordMapper">
+  <resultMap id="BaseResultMap" type="com.cdt.mbg.model.PunchRecord">
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="DEPT_CODE" jdbcType="VARCHAR" property="deptCode" />
+    <result column="USER_NAME" jdbcType="NVARCHAR" property="userName" />
+    <result column="PUNCH_DATE" jdbcType="DATE" property="punchDate" />
+    <result column="PUNCH_IN_TIME" jdbcType="TIME" property="punchInTime" />
+    <result column="PUNCH_OUT_TIME" jdbcType="TIME" property="punchOutTime" />
+    <result column="REMARK" jdbcType="NVARCHAR" property="remark" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="PUNCH_IN_DATE" jdbcType="DATE" property="punchInDate" />
+    <result column="PUNCH_OUT_DATE" jdbcType="DATE" property="punchOutDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    USER_ID, DEPT_CODE, USER_NAME, PUNCH_DATE, PUNCH_IN_TIME, PUNCH_OUT_TIME, REMARK, 
+    CREATE_TIME, UPDATE_TIME, PUNCH_IN_DATE, PUNCH_OUT_DATE
+  </sql>
+  <select id="selectByExample" parameterType="com.cdt.mbg.model.PunchRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dbo.PUNCH_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.cdt.mbg.model.PunchRecordExample">
+    delete from dbo.PUNCH_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cdt.mbg.model.PunchRecord">
+    insert into dbo.PUNCH_RECORD (USER_ID, DEPT_CODE, USER_NAME, 
+      PUNCH_DATE, PUNCH_IN_TIME, PUNCH_OUT_TIME, 
+      REMARK, CREATE_TIME, UPDATE_TIME, 
+      PUNCH_IN_DATE, PUNCH_OUT_DATE)
+    values (#{userId,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, #{userName,jdbcType=NVARCHAR}, 
+      #{punchDate,jdbcType=DATE}, #{punchInTime,jdbcType=TIME}, #{punchOutTime,jdbcType=TIME}, 
+      #{remark,jdbcType=NVARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{punchInDate,jdbcType=DATE}, #{punchOutDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cdt.mbg.model.PunchRecord">
+    insert into dbo.PUNCH_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="deptCode != null">
+        DEPT_CODE,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="punchDate != null">
+        PUNCH_DATE,
+      </if>
+      <if test="punchInTime != null">
+        PUNCH_IN_TIME,
+      </if>
+      <if test="punchOutTime != null">
+        PUNCH_OUT_TIME,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="punchInDate != null">
+        PUNCH_IN_DATE,
+      </if>
+      <if test="punchOutDate != null">
+        PUNCH_OUT_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=NVARCHAR},
+      </if>
+      <if test="punchDate != null">
+        #{punchDate,jdbcType=DATE},
+      </if>
+      <if test="punchInTime != null">
+        #{punchInTime,jdbcType=TIME},
+      </if>
+      <if test="punchOutTime != null">
+        #{punchOutTime,jdbcType=TIME},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="punchInDate != null">
+        #{punchInDate,jdbcType=DATE},
+      </if>
+      <if test="punchOutDate != null">
+        #{punchOutDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cdt.mbg.model.PunchRecordExample" resultType="java.lang.Long">
+    select count(*) from dbo.PUNCH_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dbo.PUNCH_RECORD
+    <set>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptCode != null">
+        DEPT_CODE = #{record.deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        USER_NAME = #{record.userName,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.punchDate != null">
+        PUNCH_DATE = #{record.punchDate,jdbcType=DATE},
+      </if>
+      <if test="record.punchInTime != null">
+        PUNCH_IN_TIME = #{record.punchInTime,jdbcType=TIME},
+      </if>
+      <if test="record.punchOutTime != null">
+        PUNCH_OUT_TIME = #{record.punchOutTime,jdbcType=TIME},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.punchInDate != null">
+        PUNCH_IN_DATE = #{record.punchInDate,jdbcType=DATE},
+      </if>
+      <if test="record.punchOutDate != null">
+        PUNCH_OUT_DATE = #{record.punchOutDate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dbo.PUNCH_RECORD
+    set USER_ID = #{record.userId,jdbcType=VARCHAR},
+      DEPT_CODE = #{record.deptCode,jdbcType=VARCHAR},
+      USER_NAME = #{record.userName,jdbcType=NVARCHAR},
+      PUNCH_DATE = #{record.punchDate,jdbcType=DATE},
+      PUNCH_IN_TIME = #{record.punchInTime,jdbcType=TIME},
+      PUNCH_OUT_TIME = #{record.punchOutTime,jdbcType=TIME},
+      REMARK = #{record.remark,jdbcType=NVARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      PUNCH_IN_DATE = #{record.punchInDate,jdbcType=DATE},
+      PUNCH_OUT_DATE = #{record.punchOutDate,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
