@@ -31,12 +31,12 @@
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="com.cdt.mbg.model" targetProject="src\main\java" />
+        <javaModelGenerator targetPackage="com.cdt.mbg.model" targetProject="src/main/java" />
 
-        <sqlMapGenerator targetPackage="com.cdt.mbg.mapper" targetProject="src\main\resources" />
+        <sqlMapGenerator targetPackage="com.cdt.mbg.mapper" targetProject="src/main/resources" />
 
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.cdt.mbg.mapper"
-            targetProject="src\main\java" />
+            targetProject="src/main/java" />
         <!--生成全部表tableName设为% -->
         <table tableName="%" schema="dbo">
             <property name="useActualColumnNames" value="false" />
